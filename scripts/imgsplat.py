@@ -10,7 +10,9 @@ __version__ = 0.1
 
 import lxml.etree
 
+import os
 import re
+import shutil
 import string
 
 def splat(instream):
@@ -26,17 +28,26 @@ def splat(instream):
 	version = m.group(3)
 	jurisdiction = m.group(5)
 	dest = '../www/l/'+code+'/'
-	source = code
+	code2 = code
+	if (code == 'by-nd-nc'):
+	    code2 = 'by-nc-nd'
+	elif (code == 'nc' or code == 'nd' or code == 'sa' or code == 'nd-nc' or code == 'nc-sa'):
+	    code2 = 'somerights1'
+	source = '../base-images/88x31/'+code2
         if (version):
 	    dest += version+'/'
         if (jurisdiction):
 	    dest += jurisdiction+'/'
+	if (not os.access(dest, os.F_OK)):
+	    os.makedirs(dest)
 	dest += '88x31.png'
-	print dest
 	#if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
 	#    source += '_'+money[jurisdiction]
 	source += '.png'
-	print source
+	try:
+	    shutil.copy2(source, dest)
+	except:
+	    print 'Failed to copy '+source+' to '+dest
      
 if __name__ == '__main__':
     splat(file('api_xml/licenses.xml'))
