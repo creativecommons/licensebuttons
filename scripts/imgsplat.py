@@ -29,18 +29,21 @@ def splat(instream):
 	jurisdiction = m.group(5)
 	dest = '../www/l/'+code+'/'
 	code2 = code
+	size = '88x31'
 	if (code == 'by-nd-nc'):
 	    code2 = 'by-nc-nd'
 	elif (code == 'nc' or code == 'nd' or code == 'sa' or code == 'nd-nc' or code == 'nc-sa'):
 	    code2 = 'somerights1'
-	source = '../base-images/88x31/'+code2
+	elif (code == 'LGPL' or code == 'GPL'):
+	    size = '88x62'
+	source = '../base-images/'+size+'/'+code2
         if (version):
 	    dest += version+'/'
         if (jurisdiction):
 	    dest += jurisdiction+'/'
 	if (not os.access(dest, os.F_OK)):
 	    os.makedirs(dest)
-	dest += '88x31.png'
+	dest += size+'.png'
 	#if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
 	#    source += '_'+money[jurisdiction]
 	source += '.png'
