@@ -17,7 +17,20 @@ import string
 
 def splat(instream):
 
-    money = { 'es': 'euro', 'jp': 'yen' }
+    money = {
+        'at': 'euro',
+        'be': 'euro',
+        'fi': 'euro',
+        'de': 'euro',
+	'es': 'euro',
+	'fr': 'euro',
+        'gr': 'euro',
+        'ie': 'euro',
+        'it': 'euro',
+        'lu': 'euro',
+        'nl': 'euro',
+        'pt': 'euro',
+    }
 
     licenses = lxml.etree.parse(instream)
     uris = licenses.xpath('//jurisdiction/version/@uri')
@@ -44,8 +57,8 @@ def splat(instream):
 	if (not os.access(dest, os.F_OK)):
 	    os.makedirs(dest)
 	dest += size+'.png'
-	#if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
-	#    source += '_'+money[jurisdiction]
+	if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
+	    source += '_'+money[jurisdiction]
 	source += '.png'
 	try:
 	    shutil.copy2(source, dest)
