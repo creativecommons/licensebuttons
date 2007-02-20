@@ -15,6 +15,18 @@ import re
 import shutil
 import string
 
+def copyto(source, dest, code, size, jurisdiction, money):
+    if (not os.access(dest, os.F_OK)):
+	os.makedirs(dest)
+    dest += size+'.png'
+    if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
+	source += '_'+money[jurisdiction]
+    source += '.png'
+    try:
+	shutil.copy2(source, dest)
+    except:
+	print 'Failed to copy '+source+' to '+dest
+
 def splat(instream):
 
     money = {
@@ -49,21 +61,14 @@ def splat(instream):
 	    code2 = 'somerights1'
 	elif (code == 'LGPL' or code == 'GPL'):
 	    size = '88x62'
-	source = '../base-images/'+size+'/'+code2
         if (version):
 	    dest += version+'/'
         if (jurisdiction):
 	    dest += jurisdiction+'/'
-	if (not os.access(dest, os.F_OK)):
-	    os.makedirs(dest)
-	dest += size+'.png'
-	if string.find(code, 'nc') != -1 and money.has_key(jurisdiction):
-	    source += '_'+money[jurisdiction]
-	source += '.png'
-	try:
-	    shutil.copy2(source, dest)
-	except:
-	    print 'Failed to copy '+source+' to '+dest
+	source = '../base-images/'+size+'/'+code2
+	copyto(source, dest, code, size, jurisdiction, money)
+	source = '../base-images/'+'80x15'+'/'+code2
+	copyto(source, dest, code, '80x15', '', money)
      
 if __name__ == '__main__':
     splat(file('api_xml/licenses.xml'))
