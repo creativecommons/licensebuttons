@@ -1,19 +1,34 @@
 """
 imgsplat.py
 
-Requires lxml (http://codespeak.net/lxml).
-
 (c) 2006 Creative Commons.
 """
 
 __version__ = 0.1
 
-import lxml.etree
-
 import os
 import re
 import shutil
 import string
+
+from rdflib.Graph import Graph
+from rdflib import Namespace
+
+NS_CC = Namespace("http://creativecommons.org/ns#")
+NS_RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+
+def load_graph(filename):
+    """Load the specified filename; return a graph."""
+
+    store = Graph()
+    store.bind("cc", "http://creativecommons.org/ns#")
+    store.bind("dc", "http://purl.org/dc/elements/1.1/")
+    store.bind("dcq","http://purl.org/dc/terms/")
+    store.bind("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+
+    store.load(filename)
+
+    return store
 
 def copyto(source, dest, code, size, jurisdiction, money):
     if (not os.access(dest, os.F_OK)):
@@ -27,7 +42,7 @@ def copyto(source, dest, code, size, jurisdiction, money):
     except:
 	print 'Failed to copy '+source+' to '+dest
 
-def splat(instream):
+def splat(license_graph):
 
     money = {
         'at': 'euro',
@@ -44,11 +59,9 @@ def splat(instream):
         'pt': 'euro',
     }
 
-    licenses = lxml.etree.parse(instream)
-    uris = licenses.xpath('//jurisdiction/version/@uri')
-    for uri in uris:
+    for uri in license_graph.subjects(NS_RDF.type, NS_CC.License):
         print uri
-	m = re.search('http://creativecommons.org/licenses/(.*?)/((.*?)/((.*?)/)?)?', uri)
+	m = re.search('http://creativecommons.org/licenses/(.*?)/((.*?)/((.*?)/)?)?', str(uri))
 	code = m.group(1)
 	version = m.group(3)
 	jurisdiction = m.group(5)
@@ -69,6 +82,8 @@ def splat(instream):
 	copyto(source, dest, code, size, jurisdiction, money)
 	source = '../base-images/'+'80x15'+'/'+code2
 	copyto(source, dest, code, '80x15', '', money)
-     
-if __name__ == '__main__':
-    splat(file('api_xml/licenses.xml'))
+
+def cli():
+    """imgsplat command line interface."""
+
+    splat(load_graph('http://creativecommons.org/licenses/index.rdf'))
