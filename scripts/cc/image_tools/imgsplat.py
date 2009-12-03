@@ -74,12 +74,12 @@ def splat(license_graph):
 
     for uri in license_graph.subjects(NS_RDF.type, NS_CC.License):
         print uri
-	m = re.search('http://creativecommons.org/licenses/(.*?)/((.*?)/((.*?)/)?)?', str(uri))
-	code = m.group(1)
-	version = m.group(3)
-	jurisdiction = m.group(5)
+	m = re.search('http://creativecommons.org/(?P<group>licenses|publicdomain)/(?P<code>.*?)/((?P<version>.*?)/((?P<jurisdiction>.*?)/)?)?', str(uri))
+	code = m.group('code')
+	version = m.group('version')
+	jurisdiction = m.group('jurisdiction')
 
-	dest = os.path.join(checkout_base(), 'www', 'l', code)
+	dest = os.path.join(checkout_base(), 'www', m.group('group')[0], code)
 
 	code2 = code
 	size = '88x31'
