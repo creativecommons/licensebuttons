@@ -31,7 +31,7 @@ setup(
                     },
     
     install_requires = ['setuptools',
-                        'rdflib',
+                        'rdflib<3.0',
                         ],
 
     include_package_data = True,
