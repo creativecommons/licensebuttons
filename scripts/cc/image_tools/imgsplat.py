@@ -65,7 +65,8 @@ def copyto(source, dest, code, size, jurisdiction, money=MONEY):
     # If NC (and not the 80x15 icon), use the appropriate currency icon.
     if ((string.find(code, 'nc') != -1
          and money.has_key(jurisdiction)
-         and size != '80x15')):
+         and size != '80x15'
+         and not 'somerights1' in source)):
 	source += '_' + money[jurisdiction]
 
     source += '.png'
