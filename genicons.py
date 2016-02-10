@@ -125,7 +125,7 @@ for suite, licenses in SUITES.iteritems():
                                                               foreground))
                         try:
                             os.makedirs(path)
-                        except OSError:
+                        except OSError, exception:
                             if exception.errno != errno.EEXIST:
                                 raise
                         filepath = os.path.join(path,
