@@ -4,14 +4,14 @@
 import errno, math, os
 import cairo, pangocairo
 
-SUITES = {"l": {"by": ("b"),
-                "by-nc": ("bn", "be", "by"),
-                "by-nd": ("bd"),
-                "by-sa": ("ba"),
-                "by-nc-nd": ("bnd", "bed", "byd"),
-                "by-nc-sa": ("bna", "bea", "bya")},
-          "p": {"cc-zero": ("0"),
-                "public-domain-mark": ("p")}}
+SUITES = {"l": {"by": ["b"],
+                "by-nc": ["bn", "be", "by"],
+                "by-nd": ["bd"],
+                "by-sa": ["ba"],
+                "by-nc-nd": ["bnd", "bed", "byd"],
+                "by-nc-sa": ["bna", "bea", "bya"]},
+          "p": {"cc-zero": ["0"],
+                "public-domain-mark": ["p"]}}
 
 DIMENSIONS = ((88, 31, 31, 1),
                (80, 15, 15, 4),
