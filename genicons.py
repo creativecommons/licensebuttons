@@ -92,7 +92,9 @@ def iconFilename (dimensions, characters):
     return filename + '.png'
 
 def iconPath (suite, descriptor, background, foreground):
-    return os.path.join(suite, descriptor, background, foreground)
+    foreground_path = os.path.join(foreground[0:2], foreground[2:4],
+                                   foreground[4:6])
+    return os.path.join(suite, descriptor, background, foreground_path)
 
 def genicon (suite, characters, font_size, padding, width, height, background,
              foreground):
