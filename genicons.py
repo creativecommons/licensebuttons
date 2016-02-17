@@ -1,7 +1,7 @@
 # genall.py - generate all the icons.
 # Copyright 2016 Creative Commons Corporation.
 
-import errno, math, os
+import errno, math, os, os.path
 import cairo, pangocairo
 
 SUITES = {"l": {"by": ["b"],
@@ -115,23 +115,25 @@ for suite, licenses in SUITES.iteritems():
                         # e.g. white on white
                         if foreground == background:
                             continue
+                        path = os.path.join(basedir, iconPath(suite,
+                                                              lic,
+                                                              background,
+                                                              foreground))
+                        filepath = os.path.join(path,
+                                                iconFilename(dimensions,
+                                                             chars))
+                        if os.path.exists(filepath):
+                            continue
                         width = dimensions[0]
                         height = dimensions[1]
                         font_size = dimensions[2]
                         padding = dimensions[3]
                         ctx = genicon(suite, chars, font_size, padding,
                                       width, height, background, foreground)
-                        path = os.path.join(basedir, iconPath(suite,
-                                                              lic,
-                                                              background,
-                                                              foreground))
                         try:
                             os.makedirs(path)
                         except OSError, exception:
                             if exception.errno != errno.EEXIST:
                                 raise
-                        filepath = os.path.join(path,
-                                                iconFilename(dimensions,
-                                                             chars))
                         # Will raise and exception on error
                         ctx.get_target().write_to_png(filepath)
