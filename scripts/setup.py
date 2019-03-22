@@ -1,4 +1,4 @@
-## Copyright (c) 2007 Nathan R. Yergler, Creative Commons
+# Copyright (c) 2007 Nathan R. Yergler, Creative Commons
 
 ## Permission is hereby granted, free of charge, to any person obtaining
 ## a copy of this software and associated documentation files (the "Software"),
@@ -25,11 +25,11 @@ setup(
     version = "1.0",
     packages = ['cc.image_tools'],
 
-    entry_points = {'console_scripts' : 
+    entry_points = {'console_scripts' :
                     ['imgsplat = cc.image_tools.imgsplat:cli',
                      ]
                     },
-    
+
     install_requires = ['setuptools',
                         'rdflib<3.0',
                         ],

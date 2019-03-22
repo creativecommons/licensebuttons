@@ -60,21 +60,21 @@ def copyto(source, dest, code, size, jurisdiction, money=MONEY):
     # Make the destination directory, if necessary
     dest_dir = os.path.dirname(dest)
     if (not os.access(dest_dir, os.F_OK)):
-	os.makedirs(dest_dir)
+        os.makedirs(dest_dir)
 
     # If NC (and not the 80x15 icon), use the appropriate currency icon.
     if ((string.find(code, 'nc') != -1
          and money.has_key(jurisdiction)
          and size != '80x15'
          and not 'somerights1' in source)):
-	source += '_' + money[jurisdiction]
+        source += '_' + money[jurisdiction]
 
     source += '.png'
 
     try:
-	shutil.copy2(source, dest)
+        shutil.copy2(source, dest)
     except:
-	print 'Failed to copy '+source+' to '+dest
+        print 'Failed to copy '+source+' to '+dest
 
 
 def splat(license_graph):
