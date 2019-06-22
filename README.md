@@ -1,7 +1,6 @@
 # www-i
 
-Creative Commons Images
-
+Creative Commons Images (<https://i.creativecommons.org>).
 
 ## Overview
 
