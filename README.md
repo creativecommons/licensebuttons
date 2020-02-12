@@ -1,10 +1,7 @@
-# www-i
+# licensebuttons
 
-Creative Commons Images (<https://i.creativecommons.org>).
+Creative Commons badges, license Buttons, etc. (<https://licensebuttons.net/>).
 
-## Overview
 
-This appears to be part of what drives <https://licensebuttons.net/>, although
-the server has additional files.
-
-More work is needed to reverse engineer, rebuild, document, etc.
+:warning: **Consolidation/Update in progress. This repository is in a state of
+flux.**
