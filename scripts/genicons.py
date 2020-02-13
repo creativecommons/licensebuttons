@@ -1,4 +1,4 @@
-# genall.py - generate all the icons.
+# genicons.py - generate all the icons.
 # Copyright 2016 Creative Commons Corporation.
 
 import errno, math, os, os.path
