@@ -16,7 +16,7 @@ variety of color schemes. These icons can then be served by a web server.
 ### Install
 
 ```shell
-sudo apt-get install python2.7 python-cairo python-gtk2
+sudo apt-get install python-cairo python-gtk2
 ```
 
 ### Usage
