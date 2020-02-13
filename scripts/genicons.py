@@ -24,14 +24,15 @@ BACKGROUNDS = ("transparent",
                "ffffff")
 
 # 255 isn't an 8 offset
-STEPS = list(range(0, 249, 8)) + [255]
+#STEPS = list(range(0, 249, 8)) + [255]
+STEPS = ["00", "11", "22", "33", "66", "99", "ff"]
 
 # These will be generated in the colors anyway
 #def greys ():
 #    return ["%02x%02x%02x" % (x, x, x) for x in STEPS]
 
 def colors ():
-    return ["%02x%02x%02x" % (r, g, b)
+    return ["%s%s%s" % (r, g, b)
             for r in STEPS
             for g in STEPS
             for b in STEPS]
