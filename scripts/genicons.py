@@ -136,6 +136,13 @@ def genicon(
     return ctx
 
 
+# See https://wiki.debian.org/Fonts
+font_map = pangocairo.cairo_font_map_get_default()
+font_families = [family.get_name() for family in font_map.list_families()]
+if "CC Icons" not in font_families:
+    raise Exception("CC Icons font not installed")
+
+
 basedir = "build"  # os.path.join(os.getcwd(), 'build')
 
 for suite, licenses in SUITES.iteritems():
