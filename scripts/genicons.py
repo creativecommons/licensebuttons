@@ -11,6 +11,7 @@ import os.path
 import cairo
 import pangocairo
 
+
 SUITES = {
     "l": {
         "by": ["b"],
@@ -33,20 +34,11 @@ BACKGROUNDS = (
     "ffffff",
 )
 
-# 255 isn't an 8 offset
-# STEPS = list(range(0, 249, 8)) + [255]
 STEPS = ["00", "11", "22", "33", "66", "99", "ff"]
 
-# These will be generated in the colors anyway
-# def greys ():
-#    return ["%02x%02x%02x" % (x, x, x) for x in STEPS]
-
-
-def colors():
-    return ["%s%s%s" % (r, g, b) for r in STEPS for g in STEPS for b in STEPS]
-
-
-FOREGROUNDS = colors()  # + greys()
+FOREGROUNDS = [
+    "%s%s%s" % (r, g, b) for r in STEPS for g in STEPS for b in STEPS
+]
 
 HEX_TO_FLOAT = 1.0 / 255.0
 
@@ -136,14 +128,18 @@ def genicon(
     return ctx
 
 
-# See https://wiki.debian.org/Fonts
 font_map = pangocairo.cairo_font_map_get_default()
 font_families = [family.get_name() for family in font_map.list_families()]
 if "CC Icons" not in font_families:
-    raise Exception("CC Icons font not installed")
+    raise Exception(
+        "CC Icons font not installed. See" " <https://wiki.debian.org/Fonts>."
+    )
 
-
-basedir = "build"  # os.path.join(os.getcwd(), 'build')
+script_dir = os.path.dirname(__file__)
+basedir = os.path.realpath(
+    os.path.abspath(os.path.join(script_dir, "..", "www", "i"))
+)
+print "# basedir:", basedir
 
 for suite, licenses in SUITES.iteritems():
     for lic, module_chars in licenses.iteritems():
@@ -154,12 +150,22 @@ for suite, licenses in SUITES.iteritems():
                         # e.g. white on white
                         if foreground == background:
                             continue
-                        path = os.path.join(
-                            basedir,
-                            iconPath(suite, lic, background, foreground),
+                        path = os.path.realpath(
+                            os.path.abspath(
+                                os.path.join(
+                                    basedir,
+                                    iconPath(
+                                        suite, lic, background, foreground
+                                    ),
+                                )
+                            )
                         )
-                        filepath = os.path.join(
-                            path, iconFilename(dimensions, chars)
+                        filepath = os.path.realpath(
+                            os.path.abspath(
+                                os.path.join(
+                                    path, iconFilename(dimensions, chars)
+                                )
+                            )
                         )
                         if os.path.exists(filepath):
                             continue
@@ -179,8 +185,8 @@ for suite, licenses in SUITES.iteritems():
                         )
                         try:
                             os.makedirs(path)
-                        except OSError, exception:
-                            if exception.errno != errno.EEXIST:
+                        except OSError as e:
+                            if e.errno != errno.EEXIST:
                                 raise
                         # Will raise and exception on error
                         ctx.get_target().write_to_png(filepath)
