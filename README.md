@@ -55,10 +55,10 @@ This will generate the icons in the directory `www/i` directory.
 ### Icons / Images
 
 - The icons contained within this repository are for use the Creative Commons
-  Trademark Policy (see [Policies - Creative Commons][ccpolicies]). They are
-  not licensed under a Creative Commons license (also see [Could I use a CC
-  license to share my logo or trademark? - Frequently Asked Questions -
-  Creative Commons][tmfaq])
+  Trademark Policy (see [Policies - Creative Commons][ccpolicies]). **The icons
+  are not licensed under a Creative Commons license** (also see [Could I use a
+  CC license to share my logo or trademark? - Frequently Asked Questions -
+  Creative Commons][tmfaq]).
 
 [ccpolicies]: https://creativecommons.org/policies
 [tmfaq]: https://creativecommons.org/faq/#could-i-use-a-cc-license-to-share-my-logo-or-trademark
