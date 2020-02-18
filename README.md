@@ -17,7 +17,7 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
 ### Install
 
 1. Assuming the repository is on Debian
-2. Install required packages:
+2. Install required Python 2 packages:
 
     ```shell
     sudo apt-get install python-cairo python-gtk2
@@ -30,7 +30,10 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
     ln -sf ${PWD}/www/cc-icons.ttf ~/.fonts/
     ```
 
+
 ### Usage
+
+Execute with Python 2:
 
 ```shell
 python genicons.py
