@@ -43,33 +43,33 @@ FOREGROUNDS = [
 HEX_TO_FLOAT = 1.0 / 255.0
 
 
-def hexToFloat(digits):
+def hex_to_float(digits):
     return HEX_TO_FLOAT * int(digits, 16)
 
 
-def setColor(ctx, color_string):
+def set_color(ctx, color_string):
     if color_string == "transparent":
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.0)
     else:
         ctx.set_source_rgb(
-            hexToFloat(color_string[0:2]),
-            hexToFloat(color_string[2:4]),
-            hexToFloat(color_string[4:6]),
+            hex_to_float(color_string[0:2]),
+            hex_to_float(color_string[2:4]),
+            hex_to_float(color_string[4:6]),
         )
 
 
-def sizeChars(ctx, chars):
+def size_chars(ctx, chars):
     # x, y, width, height, dx, dy
     return [ctx.text_extents(char) for char in chars]
 
 
-def showChars(ctx, chars, foreground, padding, width, height):
-    sizes = sizeChars(ctx, chars)
+def show_chars(ctx, chars, foreground, padding, width, height):
+    sizes = size_chars(ctx, chars)
     total_padding = padding * (len(chars) - 1)
     total_width = reduce(lambda x, y: y[3] + x, sizes, 0.0)
     x = 0.5 + math.ceil((width / 2) - ((total_width + total_padding) / 2))
     y = math.ceil(height / 2) + math.floor(sizes[0][3] / 2)
-    setColor(ctx, foreground)
+    set_color(ctx, foreground)
     for char, size in zip(chars, sizes):
         ctx.move_to(math.ceil(x), math.ceil(y))
         ctx.show_text(char)
@@ -77,25 +77,25 @@ def showChars(ctx, chars, foreground, padding, width, height):
     ctx.stroke()
 
 
-def createContext(width, height):
+def create_context(width, height):
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
     context = cairo.Context(surface)
     ctx = pangocairo.CairoContext(context)
     return ctx
 
 
-def setBackground(ctx, background, width, height):
-    setColor(ctx, background)
+def set_background(ctx, background, width, height):
+    set_color(ctx, background)
     ctx.rectangle(0, 0, width, height)
     ctx.fill()
 
 
-def configureFont(ctx, size):
+def configure_font(ctx, size):
     ctx.select_font_face("CC Icons")
     ctx.set_font_size(size)
 
 
-def iconFilename(dimensions, characters):
+def icon_filename(dimensions, characters):
     filename = "%ix%i" % (dimensions[0], dimensions[1])
     if "y" in characters:
         filename += "-y"
@@ -104,7 +104,7 @@ def iconFilename(dimensions, characters):
     return filename + ".png"
 
 
-def iconPath(suite, descriptor, background, foreground):
+def icon_path(suite, descriptor, background, foreground):
     foreground_path = os.path.join(
         foreground[0:2], foreground[2:4], foreground[4:6]
     )
@@ -121,10 +121,10 @@ def genicon(
     background,
     foreground,
 ):
-    ctx = createContext(width, height)
-    setBackground(ctx, background, width, height)
-    configureFont(ctx, font_size)
-    showChars(ctx, characters, foreground, padding, width, height)
+    ctx = create_context(width, height)
+    set_background(ctx, background, width, height)
+    configure_font(ctx, font_size)
+    show_chars(ctx, characters, foreground, padding, width, height)
     return ctx
 
 
@@ -154,7 +154,7 @@ for suite, licenses in SUITES.iteritems():
                             os.path.abspath(
                                 os.path.join(
                                     basedir,
-                                    iconPath(
+                                    icon_path(
                                         suite, lic, background, foreground
                                     ),
                                 )
@@ -163,7 +163,7 @@ for suite, licenses in SUITES.iteritems():
                         filepath = os.path.realpath(
                             os.path.abspath(
                                 os.path.join(
-                                    path, iconFilename(dimensions, chars)
+                                    path, icon_filename(dimensions, chars)
                                 )
                             )
                         )
