@@ -82,9 +82,8 @@ def show_chars(ctx, chars, foreground, padding, width, height):
 
 def create_context(width, height):
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
-    context = cairo.Context(surface)
-    # ctx = pangocairo.CairoContext(context)
-    return context
+    ctx = cairo.Context(surface)
+    return ctx
 
 
 def set_background(ctx, background, width, height):
