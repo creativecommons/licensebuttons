@@ -20,7 +20,7 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
 2. Install Python 3 and required Python 3 packages:
 
     ```shell
-    sudo apt-get install python3 python3-gi-cairo
+    sudo apt-get install gir1.2-pango-1.0 python3-gi-cairo
     ```
 
 3. Install CC Icons font
@@ -36,7 +36,7 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
 Execute with Python 3:
 
 ```shell
-python3 genicons.py
+python3 scripts/genicons.py
 ```
 
 This will generate the icons in the directory `www/i` directory.
