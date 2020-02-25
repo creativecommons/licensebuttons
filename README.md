@@ -17,10 +17,10 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
 ### Install
 
 1. Assuming the repository is on Debian
-2. Install required Python 2 packages:
+2. Install Python 3 and required Python 3 packages:
 
     ```shell
-    sudo apt-get install python-cairo python-gtk2
+    sudo apt-get install gir1.2-pango-1.0 python3-gi-cairo
     ```
 
 3. Install CC Icons font
@@ -33,10 +33,10 @@ located at [`scripts/genicons.py`](scripts/genicons.py).
 
 ### Usage
 
-Execute with Python 2:
+Execute with Python 3:
 
 ```shell
-python genicons.py
+python3 scripts/genicons.py
 ```
 
 This will generate the icons in the directory `www/i` directory.

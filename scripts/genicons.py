@@ -9,7 +9,10 @@ import os.path
 
 # Third-party
 import cairo
-import pangocairo
+import gi
+gi.require_version('PangoCairo', '1.0')
+from gi.repository import PangoCairo as pangocairo
+from functools import reduce
 
 
 SUITES = {
@@ -79,8 +82,7 @@ def show_chars(ctx, chars, foreground, padding, width, height):
 
 def create_context(width, height):
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
-    context = cairo.Context(surface)
-    ctx = pangocairo.CairoContext(context)
+    ctx = cairo.Context(surface)
     return ctx
 
 
@@ -128,7 +130,7 @@ def genicon(
     return ctx
 
 
-font_map = pangocairo.cairo_font_map_get_default()
+font_map = pangocairo.font_map_get_default()
 font_families = [family.get_name() for family in font_map.list_families()]
 if "CC Icons" not in font_families:
     raise Exception(
@@ -139,10 +141,10 @@ script_dir = os.path.dirname(__file__)
 basedir = os.path.realpath(
     os.path.abspath(os.path.join(script_dir, "..", "www", "i"))
 )
-print "# basedir:", basedir
+print("# basedir:", basedir)
 
-for suite, licenses in SUITES.iteritems():
-    for lic, module_chars in licenses.iteritems():
+for suite, licenses in SUITES.items():
+    for lic, module_chars in licenses.items():
         for chars in module_chars:
             for dimensions in DIMENSIONS:
                 for background in BACKGROUNDS:
