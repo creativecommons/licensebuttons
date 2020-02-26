@@ -6,13 +6,14 @@ import errno
 import math
 import os
 import os.path
+from functools import reduce
 
 # Third-party
 import cairo
 import gi
-gi.require_version('PangoCairo', '1.0')
 from gi.repository import PangoCairo as pangocairo
-from functools import reduce
+
+gi.require_version("PangoCairo", "1.0")
 
 
 SUITES = {
