@@ -3,6 +3,7 @@
 
 # Standard library
 import errno
+from itertools import product
 import math
 import os
 import os.path
@@ -41,7 +42,7 @@ BACKGROUNDS = (
 STEPS = ["00", "11", "22", "33", "66", "99", "ff"]
 
 FOREGROUNDS = [
-    "%s%s%s" % (r, g, b) for r in STEPS for g in STEPS for b in STEPS
+    "%s%s%s" % (r, g, b) for r, g, b in product(STEPS, STEPS, STEPS)
 ]
 
 HEX_TO_FLOAT = 1.0 / 255.0
@@ -146,50 +147,44 @@ print("# basedir:", basedir)
 
 for suite, licenses in SUITES.items():
     for lic, module_chars in licenses.items():
-        for chars in module_chars:
-            for dimensions in DIMENSIONS:
-                for background in BACKGROUNDS:
-                    for foreground in FOREGROUNDS:
-                        # e.g. white on white
-                        if foreground == background:
-                            continue
-                        path = os.path.realpath(
-                            os.path.abspath(
-                                os.path.join(
-                                    basedir,
-                                    icon_path(
-                                        suite, lic, background, foreground
-                                    ),
-                                )
-                            )
-                        )
-                        filepath = os.path.realpath(
-                            os.path.abspath(
-                                os.path.join(
-                                    path, icon_filename(dimensions, chars)
-                                )
-                            )
-                        )
-                        if os.path.exists(filepath):
-                            continue
-                        width = dimensions[0]
-                        height = dimensions[1]
-                        font_size = dimensions[2]
-                        padding = dimensions[3]
-                        ctx = genicon(
-                            suite,
-                            chars,
-                            font_size,
-                            padding,
-                            width,
-                            height,
-                            background,
-                            foreground,
-                        )
-                        try:
-                            os.makedirs(path)
-                        except OSError as e:
-                            if e.errno != errno.EEXIST:
-                                raise
-                        # Will raise and exception on error
-                        ctx.get_target().write_to_png(filepath)
+        for chars, dimensions, background, foreground in product(
+            module_chars, DIMENSIONS, BACKGROUNDS, FOREGROUNDS
+        ):
+            # e.g. white on white
+            if foreground == background:
+                continue
+            path = os.path.realpath(
+                os.path.abspath(
+                    os.path.join(
+                        basedir, icon_path(suite, lic, background, foreground),
+                    )
+                )
+            )
+            filepath = os.path.realpath(
+                os.path.abspath(
+                    os.path.join(path, icon_filename(dimensions, chars))
+                )
+            )
+            if os.path.exists(filepath):
+                continue
+            width = dimensions[0]
+            height = dimensions[1]
+            font_size = dimensions[2]
+            padding = dimensions[3]
+            ctx = genicon(
+                suite,
+                chars,
+                font_size,
+                padding,
+                width,
+                height,
+                background,
+                foreground,
+            )
+            try:
+                os.makedirs(path)
+            except OSError as e:
+                if e.errno != errno.EEXIST:
+                    raise
+            # Will raise and exception on error
+            ctx.get_target().write_to_png(filepath)
