@@ -64,10 +64,10 @@ This will generate the icons in the directory `www/i` directory.
 
 ### Development
 
-- *PyGObject is a Python package which provides bindings for GObject based libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more.* ([Overview
+- *PyGObject is a Python package which provides bindings for GObject based libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more* ([Overview
   — PyGObject][pygobject]). PyGObject does most of the work.
 - PangoCairo is used to load the system fonts and check if the "CC Icons" font
-  is avaialble. See [PangoCairo.FontMap - Interfaces -
+  is available. See [PangoCairo.FontMap - Interfaces -
   PangoCairo 1.0][pcfontmap].
 
 [pygobject]: https://pygobject.readthedocs.io/en/latest/index.html
