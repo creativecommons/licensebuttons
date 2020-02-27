@@ -65,9 +65,10 @@ This will generate the icons in the directory `www/i` directory.
 ### Development
 
 - *Pycairo is a Python module providing bindings for the cairo graphics
-  library* ([Overview — Pycairo documentation][pycairo])
-- *PyGObject is a Python package which provides bindings for GObject based libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more* ([Overview
-  — PyGObject][pygobject]).
+  library* ([Overview — Pycairo documentation][pycairo]).
+- *PyGObject is a Python package which provides bindings for GObject based
+  libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more*
+  ([Overview — PyGObject][pygobject]).
 - PangoCairo is used to load the system fonts and check if the "CC Icons" font
   is available. See [PangoCairo.FontMap - Interfaces -
   PangoCairo 1.0][pcfontmap].
