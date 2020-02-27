@@ -11,7 +11,8 @@ import os.path
 # Third-party
 import cairo
 import gi
-gi.require_version('PangoCairo', '1.0')
+
+gi.require_version("PangoCairo", "1.0")
 from gi.repository import PangoCairo as pangocairo
 from functools import reduce
 
@@ -146,25 +147,22 @@ print("# basedir:", basedir)
 
 for suite, licenses in SUITES.items():
     for lic, module_chars in licenses.items():
-        for chars, dimensions, background, foreground in product(module_chars, DIMENSIONS, BACKGROUNDS, FOREGROUNDS):
+        for chars, dimensions, background, foreground in product(
+            module_chars, DIMENSIONS, BACKGROUNDS, FOREGROUNDS
+        ):
             # e.g. white on white
             if foreground == background:
                 continue
             path = os.path.realpath(
                 os.path.abspath(
                     os.path.join(
-                        basedir,
-                        icon_path(
-                            suite, lic, background, foreground
-                        ),
+                        basedir, icon_path(suite, lic, background, foreground),
                     )
                 )
             )
             filepath = os.path.realpath(
                 os.path.abspath(
-                    os.path.join(
-                        path, icon_filename(dimensions, chars)
-                    )
+                    os.path.join(path, icon_filename(dimensions, chars))
                 )
             )
             if os.path.exists(filepath):
