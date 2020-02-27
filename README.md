@@ -7,6 +7,26 @@ Creative Commons badges, license Buttons, etc. (<https://licensebuttons.net/>).
 flux.**
 
 
+## Code of Conduct
+
+[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md):
+
+> The Creative Commons team is committed to fostering a welcoming community.
+> This project and all other Creative Commons open source projects are governed
+> by our [Code of Conduct][code_of_conduct]. Please report unacceptable
+> behavior to [conduct@creativecommons.org](mailto:conduct@creativecommons.org)
+> per our [reporting guidelines][reporting_guide].
+
+[code_of_conduct]: https://opensource.creativecommons.org/community/code-of-conduct/
+[reporting_guide]: https://opensource.creativecommons.org/community/code-of-conduct/enforcement/
+
+
+## Contributing
+
+We welcome contributions for bug fixes, enhancement and documentation. Please
+follow [`CONTRIBUTING.md`](CONTRIBUTING.md) while contributing.
+
+
 ## genicons.py
 
 This is a script to generate Creative Commons icon badges in png format in a
@@ -40,6 +60,18 @@ python3 scripts/genicons.py
 ```
 
 This will generate the icons in the directory `www/i` directory.
+
+
+### Development
+
+- *PyGObject is a Python package which provides bindings for GObject based libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more.* ([Overview
+  — PyGObject][pygobject]). PyGObject does most of the work.
+- PangoCairo is used to load the system fonts and check if the "CC Icons" font
+  is avaialble. See [PangoCairo.FontMap - Interfaces -
+  PangoCairo 1.0][pcfontmap].
+
+[pygobject]: https://pygobject.readthedocs.io/en/latest/index.html
+[pcfontmap]: https://lazka.github.io/pgi-docs/PangoCairo-1.0/classes/FontMap.html#PangoCairo.FontMap
 
 
 ## License
