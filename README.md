@@ -68,12 +68,14 @@ This will generate the icons in the directory `www/i` directory.
   - Github Actions check the style and syntax with [black][black] and
     [flake8][flake8]. Run the following commands before submitting a pull
     request:
-    ```shell
-    black -l 79 ./scripts/genicons.py
-    ```
-    ```
-    flake8 ./scripts/genicons.p
-    ```
+    - Reformat with black using a maxiumum of 79 charaters per line:
+        ```shell
+        black -l 79 ./scripts/genicons.py
+        ```
+    - Check syntax with flake8:
+        ```shell
+        flake8 ./scripts/genicons.p
+        ```
 - Dependencies
   - *Pycairo is a Python module providing bindings for the cairo graphics
     library* ([Overview — Pycairo documentation][pycairo]).
