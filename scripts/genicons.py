@@ -7,6 +7,8 @@ from itertools import product
 import math
 import os
 import os.path
+import sys
+import traceback
 from functools import reduce
 
 # Third-party
@@ -132,59 +134,84 @@ def genicon(
     return ctx
 
 
-font_map = pangocairo.font_map_get_default()
-font_families = [family.get_name() for family in font_map.list_families()]
-if "CC Icons" not in font_families:
-    raise Exception(
-        "CC Icons font not installed. See" " <https://wiki.debian.org/Fonts>."
+def get_fonts():
+    font_map = pangocairo.font_map_get_default()
+    font_families = [family.get_name() for family in font_map.list_families()]
+    if "CC Icons" not in font_families:
+        raise Exception(
+            "CC Icons font not installed. See"
+            " <https://wiki.debian.org/Fonts>."
+        )
+
+
+def get_basedir():
+    script_dir = os.path.dirname(__file__)
+    basedir = os.path.realpath(
+        os.path.abspath(os.path.join(script_dir, "..", "www", "i"))
     )
+    return basedir
 
-script_dir = os.path.dirname(__file__)
-basedir = os.path.realpath(
-    os.path.abspath(os.path.join(script_dir, "..", "www", "i"))
-)
-print("# basedir:", basedir)
 
-for suite, licenses in SUITES.items():
-    for lic, module_chars in licenses.items():
-        for chars, dimensions, background, foreground in product(
-            module_chars, DIMENSIONS, BACKGROUNDS, FOREGROUNDS
-        ):
-            # e.g. white on white
-            if foreground == background:
-                continue
-            path = os.path.realpath(
-                os.path.abspath(
-                    os.path.join(
-                        basedir, icon_path(suite, lic, background, foreground),
+def main():
+    get_fonts()
+    basedir = get_basedir()
+    print("# basedir:", basedir)
+
+    for suite, licenses in SUITES.items():
+        for lic, module_chars in licenses.items():
+            for chars, dimensions, background, foreground in product(
+                module_chars, DIMENSIONS, BACKGROUNDS, FOREGROUNDS
+            ):
+                # e.g. white on white
+                if foreground == background:
+                    continue
+                path = os.path.realpath(
+                    os.path.abspath(
+                        os.path.join(
+                            basedir,
+                            icon_path(suite, lic, background, foreground),
+                        )
                     )
                 )
-            )
-            filepath = os.path.realpath(
-                os.path.abspath(
-                    os.path.join(path, icon_filename(dimensions, chars))
+                filepath = os.path.realpath(
+                    os.path.abspath(
+                        os.path.join(path, icon_filename(dimensions, chars))
+                    )
                 )
-            )
-            if os.path.exists(filepath):
-                continue
-            width = dimensions[0]
-            height = dimensions[1]
-            font_size = dimensions[2]
-            padding = dimensions[3]
-            ctx = genicon(
-                suite,
-                chars,
-                font_size,
-                padding,
-                width,
-                height,
-                background,
-                foreground,
-            )
-            try:
-                os.makedirs(path)
-            except OSError as e:
-                if e.errno != errno.EEXIST:
-                    raise
-            # Will raise and exception on error
-            ctx.get_target().write_to_png(filepath)
+                if os.path.exists(filepath):
+                    continue
+                width = dimensions[0]
+                height = dimensions[1]
+                font_size = dimensions[2]
+                padding = dimensions[3]
+                ctx = genicon(
+                    suite,
+                    chars,
+                    font_size,
+                    padding,
+                    width,
+                    height,
+                    background,
+                    foreground,
+                )
+                try:
+                    os.makedirs(path)
+                except OSError as e:
+                    if e.errno != errno.EEXIST:
+                        raise
+                # Will raise an exception on error
+                ctx.get_target().write_to_png(filepath)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except SystemExit as e:
+        sys.exit(e.code)
+    except KeyboardInterrupt as e:  # noqa F841
+        print("INFO (130) Halted via KeyboardInterrupt.", file=sys.stderr)
+        sys.exit(130)
+    except:  # noqa E722
+        print("ERROR (1) Unhandled exception:", file=sys.stderr)
+        print(traceback.print_exc(), file=sys.stderr)
+        sys.exit(1)
