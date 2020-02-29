@@ -9,6 +9,7 @@ import os
 import os.path
 from functools import reduce
 import sys
+import traceback
 
 # Third-party
 import cairo
@@ -202,7 +203,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         print("INFO (130) Halted via KeyboardInterrupt.", file=sys.stderr)
         sys.exit(130)
-    except:
+    except Exception:
         print("ERROR (1) Unhandled exception:", file=sys.stderr)
         print(traceback.print_exc(), file=sys.stderr)
         sys.exit(1)
