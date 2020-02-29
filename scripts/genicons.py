@@ -7,15 +7,15 @@ from itertools import product
 import math
 import os
 import os.path
+from functools import reduce
 import sys
 
 # Third-party
 import cairo
 import gi
 
-gi.require_version("PangoCairo", "1.0")
+gi.require_version("PangoCairo", "1.0")  # noqa: E402
 from gi.repository import PangoCairo as pangocairo
-from functools import reduce
 
 
 SUITES = {

@@ -1,0 +1,52 @@
+name: genicons_ci
+
+on:
+  push:
+    # Only run if,
+    paths:
+      # Changes in python, yaml(github actions)
+      - "**.py"
+      - "**.yaml"
+  pull_request:
+    # Only run if,
+    paths:
+      # Changes in python, yaml(github actions)
+      - "**.py"
+      - "**.yaml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pip
+        run: |
+          python -m pip install --upgrade pip
+      - name: Testing with flake8
+        run: |
+          pip install flake8
+          flake8 ./scripts/genicons.py
+      - name: Testing with black
+        run: |
+          pip install black
+          black --check -l 79 ./scripts/genicons.py
+  test:
+      runs-on: ubuntu-latest
+      
+      steps:
+        - uses: actions/checkout@v1
+        - name: Install dependencies
+          run: |
+            sudo apt-get install gir1.2-pango-1.0 python3-gi-cairo
+        - name: Install CC Fonts
+          run: |
+            sudo mkdir -p ~/.fonts
+            sudo ln -sf ${PWD}/www/cc-icons.ttf ~/.fonts/
+        - name: Run genicons.py
+          run: python3 scripts/genicons.py
+
