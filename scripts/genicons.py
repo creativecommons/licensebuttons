@@ -200,7 +200,7 @@ if __name__ == "__main__":
         main()
     except SystemExit as e:
         sys.exit(e.code)
-    except KeyboardInterrupt as e:
+    except KeyboardInterrupt:
         print("INFO (130) Halted via KeyboardInterrupt.", file=sys.stderr)
         sys.exit(130)
     except Exception:
