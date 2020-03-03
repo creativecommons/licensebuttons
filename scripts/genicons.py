@@ -2,12 +2,12 @@
 # Copyright 2016 Creative Commons Corporation.
 
 # Standard library
-import errno
+from functools import reduce
 from itertools import product
+import errno
 import math
 import os
 import os.path
-from functools import reduce
 import sys
 import traceback
 
