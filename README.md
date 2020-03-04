@@ -74,7 +74,7 @@ This will generate the icons in the directory `www/i` directory.
         ```
     - Check syntax with flake8:
         ```shell
-        flake8 ./scripts/genicons.p
+        flake8 ./scripts/genicons.py
         ```
 - Dependencies
   - *Pycairo is a Python module providing bindings for the cairo graphics
