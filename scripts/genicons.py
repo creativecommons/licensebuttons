@@ -2,12 +2,12 @@
 # Copyright 2016 Creative Commons Corporation.
 
 # Standard library
-import errno
+from functools import reduce
 from itertools import product
+import errno
 import math
 import os
 import os.path
-from functools import reduce
 import sys
 import traceback
 
@@ -102,12 +102,14 @@ def configure_font(ctx, size):
 
 
 def icon_filename(dimensions, characters):
-    filename = "%ix%i" % (dimensions[0], dimensions[1])
     if "y" in characters:
-        filename += "-y"
+        suffix = "-y"
     elif "e" in characters:
-        filename += "-e"
-    return filename + ".png"
+        suffix = "-e"
+    else:
+        suffix = ""
+    filename = f"{dimensions[0]}x{dimensions[1]}{suffix}.png"
+    return filename
 
 
 def icon_path(suite, descriptor, background, foreground):
@@ -139,8 +141,7 @@ def main():
     font_families = [family.get_name() for family in font_map.list_families()]
     if "CC Icons" not in font_families:
         raise Exception(
-            "CC Icons font not installed. See"
-            " <https://wiki.debian.org/Fonts>."
+            "CC Icons font not installed. See <https://wiki.debian.org/Fonts>."
         )
 
     script_dir = os.path.dirname(__file__)
