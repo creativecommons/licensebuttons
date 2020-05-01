@@ -4,6 +4,7 @@ h1#fancy {
 table#list {
     border:1px solid #aaa;
     font-family:monospace;
+    margin-bottom:2em;
     width:100%;
 }
 table#list th {
