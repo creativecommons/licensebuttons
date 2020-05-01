@@ -1,2 +1,5 @@
+# Ignore www/i/l and www/i/p because they are populated by genicons.py
+www/i/l
+www/i/p
 # Vim
 *.swp
