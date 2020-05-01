@@ -1,0 +1,21 @@
+h1#fancy {
+    font-family:monospace;
+}
+table#list {
+    border:1px solid #aaa;
+    font-family:monospace;
+    margin-bottom:2em;
+    width:100%;
+}
+table#list th {
+    text-align:left;
+    font-weight:bold;
+    background:#eee;
+    border-bottom:1px solid #aaa;
+}
+table#list th, table#list td {
+    padding:0.1em 0.5em;
+}
+table#list tr:nth-child(even) {
+    background:#f4f4f4;
+}

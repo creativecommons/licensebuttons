@@ -3,7 +3,7 @@
 Creative Commons badges, license Buttons, etc. (<https://licensebuttons.net/>).
 
 
-:warning: **Consolidation/Update in progress. This repository is in a state of
+> :warning: **Consolidation/Update in progress. This repository is in a state of
 flux.**
 
 
@@ -96,6 +96,20 @@ This will generate the icons in the directory `www/i` directory.
 ## License
 
 
+### CC Icons, Images, and Logos
+
+- The icons, images, and logos contained within this repository are for use
+  under the Creative Commons Trademark Policy (see [Policies - Creative
+  Commons][ccpolicies]).
+- **The icons, images, and logos are not licensed under a Creative Commons
+  license** (also see [Could I use a CC license to share my logo or
+  trademark? - Frequently Asked Questions - Creative Commons][tmfaq]).
+- The [GLYPHICONS FREE](#glyphicons-free), below, are licensed separately.
+
+[ccpolicies]: https://creativecommons.org/policies
+[tmfaq]: https://creativecommons.org/faq/#could-i-use-a-cc-license-to-share-my-logo-or-trademark
+
+
 ### Code / Scripts
 
 - [`LICENSE`](LICENSE) (Expat/[MIT][mit] License)
@@ -103,13 +117,19 @@ This will generate the icons in the directory `www/i` directory.
 [mit]: http://www.opensource.org/licenses/MIT "The MIT License | Open Source Initiative"
 
 
-### Icons / Images
+### GLYPHICONS FREE
 
-- The icons contained within this repository are for use under the Creative
-  Commons Trademark Policy (see [Policies - Creative Commons][ccpolicies]).
-- **The icons are not licensed under a Creative Commons license** (also see
-  [Could I use a CC license to share my logo or trademark? - Frequently Asked
-  Questions - Creative Commons][tmfaq]).
+> #### GLYPHICONS FREE license for previous version 1.9.2
+>
+> are released under the [Creative Commons Attribution 3.0 Unported (CC BY
+> 3.0)][cc-by-30]. The GLYPHICONS FREE can be used both commercially and for
+> personal use, but you must always add a link to [GLYPHICONS.com][glyphicons]
+> in a prominent place (e.g. the footer of a website), include the CC-BY
+> license and the reference to [GLYPHICONS.com][glyphicons] on every page using
+> icons.
 
-[ccpolicies]: https://creativecommons.org/policies
-[tmfaq]: https://creativecommons.org/faq/#could-i-use-a-cc-license-to-share-my-logo-or-trademark
+([Previous version of GLYPHICONS sets v 1.9.2][old-free-license])
+
+[cc-by-30]: https://creativecommons.org/licenses/by/3.0/ "Creative Commons — Attribution 3.0 Unported — CC BY 3.0"
+[glyphicons]: https://glyphicons.com/ "Sharp and clean symbols - GLYPHICONS"
+[old-free-license]: https://glyphicons.com/old/license.html#old-free-license "Previous version of GLYPHICONS sets v 1.9.2"
