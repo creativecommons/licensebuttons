@@ -104,7 +104,7 @@ This will generate the icons in the directory `www/i` directory.
 - **The icons, images, and logos are not licensed under a Creative Commons
   license** (also see [Could I use a CC license to share my logo or
   trademark? - Frequently Asked Questions - Creative Commons][tmfaq]).
-- The [Glyphicons Free](#glyphicons-free), below, are licensed separately.
+- The [GLYPHICONS FREE](#glyphicons-free), below, are licensed separately.
 
 [ccpolicies]: https://creativecommons.org/policies
 [tmfaq]: https://creativecommons.org/faq/#could-i-use-a-cc-license-to-share-my-logo-or-trademark
@@ -117,7 +117,7 @@ This will generate the icons in the directory `www/i` directory.
 [mit]: http://www.opensource.org/licenses/MIT "The MIT License | Open Source Initiative"
 
 
-### Glyphicons Free
+### GLYPHICONS FREE
 
 > #### GLYPHICONS FREE license for previous version 1.9.2
 >
