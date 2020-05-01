@@ -102,8 +102,8 @@ This will generate the icons in the directory `www/i` directory.
   under the Creative Commons Trademark Policy (see [Policies - Creative
   Commons][ccpolicies]).
 - **The icons, images, and logos are not licensed under a Creative Commons
-  license** (also see [Could I use a CC license to share my logo or trademark?
-  - Frequently Asked Questions - Creative Commons][tmfaq]).
+  license** (also see [Could I use a CC license to share my logo or
+  trademark? - Frequently Asked Questions - Creative Commons][tmfaq]).
 - The [Glyphicons Free](#glyphicons-free), below, are licensed separately.
 
 [ccpolicies]: https://creativecommons.org/policies
