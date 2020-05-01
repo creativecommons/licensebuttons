@@ -1,0 +1,24 @@
+a {
+    color:#a33;
+}
+a:hover {
+    color:#e33;
+}
+
+table#list {
+    border:1px solid #aaa;
+    font-family:monospace;
+    width:100%;
+}
+th {
+    text-align:left;
+    font-weight:bold;
+    background:#eee;
+    border-bottom:1px solid #aaa;
+}
+th, td {
+    padding:0.1em 0.5em;
+}
+tr:nth-child(even) {
+    background:#f4f4f4;
+}
