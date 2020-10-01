@@ -1,4 +1,3 @@
-# Replaces duplicate files with symlinks
 import sys
 import traceback
 import os
