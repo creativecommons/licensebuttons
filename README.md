@@ -2,7 +2,6 @@
 
 Creative Commons badges, license Buttons, etc. (<https://licensebuttons.net/>).
 
-
 > :warning: **Consolidation/Update in progress. This repository is in a state of
 flux.**
 
@@ -58,7 +57,6 @@ Execute with Python 3:
 ```shell
 python3 scripts/genicons.py
 ```
-
 This will generate the icons in the directory `www/i` directory.
 
 
@@ -76,6 +74,7 @@ This will generate the icons in the directory `www/i` directory.
         ```shell
         flake8 ./scripts/genicons.py
         ```
+        
 - Dependencies
   - *Pycairo is a Python module providing bindings for the cairo graphics
     library* ([Overview — Pycairo documentation][pycairo]).
@@ -110,6 +109,7 @@ This will generate the icons in the directory `www/i` directory.
 [tmfaq]: https://creativecommons.org/faq/#could-i-use-a-cc-license-to-share-my-logo-or-trademark
 
 
+
 ### Code / Scripts
 
 - [`LICENSE`](LICENSE) (Expat/[MIT][mit] License)
@@ -117,7 +117,9 @@ This will generate the icons in the directory `www/i` directory.
 [mit]: http://www.opensource.org/licenses/MIT "The MIT License | Open Source Initiative"
 
 
+
 ### GLYPHICONS FREE
+
 
 > #### GLYPHICONS FREE license for previous version 1.9.2
 >
@@ -127,6 +129,7 @@ This will generate the icons in the directory `www/i` directory.
 > in a prominent place (e.g. the footer of a website), include the CC-BY
 > license and the reference to [GLYPHICONS.com][glyphicons] on every page using
 > icons.
+
 
 ([Previous version of GLYPHICONS sets v 1.9.2][old-free-license])
 
