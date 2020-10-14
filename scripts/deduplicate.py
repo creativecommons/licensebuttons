@@ -8,12 +8,20 @@ from shutil import copyfile
 EURO = [
     "b9f4175382a404007e19d3566061e36c",
     "9076ddd6ddf0bffc24e6ac71c1353d33",
-    "1d7fb4e154e7198dfb39d16d9800844d"
+    "1d7fb4e154e7198dfb39d16d9800844d",
 ]
+
 
 def main():
     # Gets the full path of the www/l directory.
-    path = Path().resolve().parent.joinpath("www", "l")
+    path = (
+        Path(os.path.dirname(os.path.abspath(__file__)))
+        .resolve()
+        .parent.joinpath("www", "l")
+    )
+    # Check if the directory is exists.
+    if not os.path.exists(str(path)):
+        raise Exception("The www/l folder doesn't exists!")
     # Stores the original files
     original_files = {}
     for root, dirs, files in os.walk(path):
@@ -42,7 +50,11 @@ def main():
                 # by-nc/1.0/80x15.png  -->  by-nc       - first
                 #                       x   1.0
                 #                      -->  80x15.png   - last
-                parent = Path(path).joinpath(os.path.join(Path(relative).parts[0], Path(relative).parts[-1]))
+                parent = Path(path).joinpath(
+                    os.path.join(
+                        Path(relative).parts[0], Path(relative).parts[-1]
+                    )
+                )
 
                 # If the file contains an euro symbol, add -e tag to the end of file
                 # to avoid the overwriting.
@@ -63,13 +75,13 @@ def main():
                 #   Will be deleted and replaced with symbolic link
                 #   that points to "by-nc/80x15.png"
                 if str(parent) != str(f):
-                    symlinks = [ str(f) ]
+                    symlinks = [str(f)]
                     if not os.path.exists(str(parent)):
                         copyfile(str(f), str(parent))
 
                 original_files[digest] = {
                     "base": str(parent),
-                    "symlinks": symlinks
+                    "symlinks": symlinks,
                 }
     # Start deleting the duplicated files and create
     # symbolic links instead.
