@@ -1,0 +1,9 @@
+[tool.black]
+line-length = 79
+exclude = '''
+/(
+    \.git
+  | \base-images
+  | \www
+)/
+'''
