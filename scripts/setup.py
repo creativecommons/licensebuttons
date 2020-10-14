@@ -27,7 +27,7 @@ setup(
     entry_points={
         "console_scripts": [
             "imgsplat = cc.image_tools.imgsplat:cli",
-        ]  # (increase line to force black wrap)
+        ]  # (increase line length for black/flake8 harmony)
     },
     install_requires=["setuptools", "rdflib<3.0",],  # noqa: E231
     include_package_data=True,
