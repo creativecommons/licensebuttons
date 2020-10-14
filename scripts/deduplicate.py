@@ -6,8 +6,8 @@ import hashlib
 from shutil import copyfile
 
 EURO = [
-    "b9f4175382a404007e19d3566061e36c", 
-    "9076ddd6ddf0bffc24e6ac71c1353d33", 
+    "b9f4175382a404007e19d3566061e36c",
+    "9076ddd6ddf0bffc24e6ac71c1353d33",
     "1d7fb4e154e7198dfb39d16d9800844d"
 ]
 
@@ -50,7 +50,7 @@ def main():
                     parent = Path(str(parent).replace(".png", "-e.png"))
 
                 symlinks = []
-                
+
                 # If the file path is NOT same as with the parent folder,
                 # - Copy the file to the parent folder.
                 #   by-nc/1.0/80x15.png  -->  by-nc/80x15.png
@@ -61,7 +61,7 @@ def main():
                 #
                 #   "by-nc/1.0/80x15.png"
                 #   Will be deleted and replaced with symbolic link
-                #   that points to "by-nc/80x15.png"                      
+                #   that points to "by-nc/80x15.png"
                 if str(parent) != str(f):
                     symlinks = [ str(f) ]
                     if not os.path.exists(str(parent)):
