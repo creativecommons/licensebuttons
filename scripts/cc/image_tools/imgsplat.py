@@ -19,18 +19,19 @@ NS_RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 NS_FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 
 MONEY = {
-    'at': 'euro',
-    'be': 'euro',
-    'fi': 'euro',
-    'de': 'euro',
-    'es': 'euro',
-    'fr': 'euro',
-    'gr': 'euro',
-    'ie': 'euro',
-    'it': 'euro',
-    'lu': 'euro',
-    'nl': 'euro',
-    'pt': 'euro'}
+    "at": "euro",
+    "be": "euro",
+    "fi": "euro",
+    "de": "euro",
+    "es": "euro",
+    "fr": "euro",
+    "gr": "euro",
+    "ie": "euro",
+    "it": "euro",
+    "lu": "euro",
+    "nl": "euro",
+    "pt": "euro",
+}
 
 
 def checkout_base():
@@ -38,10 +39,10 @@ def checkout_base():
     running the tool from a Subversion checkout (or that your filesystem
     layout is the same as our repository)."""
 
-
     return os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', '..', '..')
-        )
+        os.path.join(os.path.dirname(__file__), "..", "..", "..")
+    )
+
 
 def load_graph(filename):
     """Load the specified filename; return a graph."""
@@ -49,32 +50,36 @@ def load_graph(filename):
     store = Graph()
     store.bind("cc", "http://creativecommons.org/ns#")
     store.bind("dc", "http://purl.org/dc/elements/1.1/")
-    store.bind("dcq","http://purl.org/dc/terms/")
-    store.bind("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    store.bind("dcq", "http://purl.org/dc/terms/")
+    store.bind("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 
     store.load(filename)
 
     return store
 
+
 def copyto(source, dest, code, size, jurisdiction, money=MONEY):
     # Make the destination directory, if necessary
     dest_dir = os.path.dirname(dest)
-    if (not os.access(dest_dir, os.F_OK)):
+    if not os.access(dest_dir, os.F_OK):
         os.makedirs(dest_dir)
 
     # If NC (and not the 80x15 icon), use the appropriate currency icon.
-    if ((string.find(code, 'nc') != -1
-         and money.has_key(jurisdiction)
-         and size != '80x15'
-         and not 'somerights1' in source)):
-        source += '_' + money[jurisdiction]
+    if (
+        string.find(code, "nc") != -1
+        and jurisdiction in money
+        and size != "80x15"
+        and "somerights1" not in source
+    ):
+        source += "_" + money[jurisdiction]
 
-    source += '.png'
+    source += ".png"
 
     try:
         shutil.copy2(source, dest)
-    except:
-        print 'Failed to copy '+source+' to '+dest
+    except:  # noqa: E722 (FIXME)
+        # Flake8 lint runs via Python 3 so skip following E999
+        print "Failed to copy", source, "to", dest  # noqa: E999
 
 
 def splat(license_graph):
@@ -84,29 +89,29 @@ def splat(license_graph):
         for s, p, logo in license_graph.triples((uri, NS_FOAF.logo, None)):
             # Get the dest_path, which is base-images and
             # everything after 'http://i.creativecommons.org/'
-            dest_path = os.path.join(
-                checkout_base(), 'www', str(logo)[29:])
+            dest_path = os.path.join(checkout_base(), "www", str(logo)[29:])
 
             m = re.search(
-                '^http://i.creativecommons.org/'
-                '(?P<group>l|p)/'
-                '(?P<code>.*?)/'
-                '((?P<version>.*?)/'
-                '((?P<jurisdiction>.*?)/)?)?'
-                '(?P<size>.*)\.png$', str(logo))
+                "^http://i.creativecommons.org/"
+                "(?P<group>l|p)/"
+                "(?P<code>.*?)/"
+                "((?P<version>.*?)/"
+                "((?P<jurisdiction>.*?)/)?)?"
+                r"(?P<size>.*)\.png$",
+                str(logo),
+            )
 
-            code = m.group('code')
-            jurisdiction = m.group('jurisdiction')
-            size = m.group('size')
+            code = m.group("code")
+            jurisdiction = m.group("jurisdiction")
+            size = m.group("size")
 
             code2 = code
-            if (code == 'by-nd-nc'):
-                code2 = 'by-nc-nd'
-            elif code in ('nc', 'nd', 'sa', 'nd-nc', 'nc-sa'):
-                code2 = 'somerights1'
+            if code == "by-nd-nc":
+                code2 = "by-nc-nd"
+            elif code in ("nc", "nd", "sa", "nd-nc", "nc-sa"):
+                code2 = "somerights1"
 
-            source = os.path.join(
-                checkout_base(), 'base-images', size, code2)
+            source = os.path.join(checkout_base(), "base-images", size, code2)
 
             copyto(source, dest_path, code, size, jurisdiction)
 
@@ -114,4 +119,4 @@ def splat(license_graph):
 def cli():
     """imgsplat command line interface."""
 
-    splat(load_graph('http://creativecommons.org/licenses/index.rdf'))
+    splat(load_graph("http://creativecommons.org/licenses/index.rdf"))
