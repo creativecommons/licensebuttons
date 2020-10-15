@@ -15,8 +15,8 @@ import traceback
 import cairo
 import gi
 
-gi.require_version("PangoCairo", "1.0")  # noqa: E402
-from gi.repository import PangoCairo as pangocairo
+gi.require_version("PangoCairo", "1.0")
+from gi.repository import PangoCairo as pangocairo  # noqa: E402
 
 
 SUITES = {
