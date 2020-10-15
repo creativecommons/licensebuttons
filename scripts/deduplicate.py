@@ -1,9 +1,19 @@
+#!/usr/bin/env python3
+# vim: set fileencoding=utf-8:
+
+"""
+Deduplicate the files in www/l by moving unique files up a level and symlinking
+to them
+"""
+
+# Standard library
+from pathlib import Path
+from shutil import copyfile
+import hashlib
+import os
 import sys
 import traceback
-import os
-from pathlib import Path
-import hashlib
-from shutil import copyfile
+
 
 EURO = [
     "b9f4175382a404007e19d3566061e36c",
@@ -45,8 +55,8 @@ def main():
                 relative = Path(f).relative_to(path)
 
                 # Joins the first and last part of the file parts
-                # so it can be used moving the file to the parent license folder
-                # because some files are under 2 sub-directories.
+                # so it can be used moving the file to the parent license
+                # folder because some files are under 2 sub-directories.
                 # by-nc/1.0/80x15.png  -->  by-nc       - first
                 #                       x   1.0
                 #                      -->  80x15.png   - last
@@ -56,8 +66,8 @@ def main():
                     )
                 )
 
-                # If the file contains an euro symbol, add -e tag to the end of file
-                # to avoid the overwriting.
+                # If the file contains an euro symbol, add -e tag to the end of
+                # the file to avoid the overwriting.
                 if digest in EURO:
                     parent = Path(str(parent).replace(".png", "-e.png"))
 
