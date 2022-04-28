@@ -3,10 +3,6 @@
 Creative Commons badges, license Buttons, etc. (<https://licensebuttons.net/>).
 
 
-> :warning: **Consolidation/Update in progress. This repository is in a state of
-flux.**
-
-
 ## Code of Conduct
 
 [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md):
