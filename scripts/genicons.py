@@ -4,6 +4,7 @@
 # Standard library
 from functools import reduce
 from itertools import product
+from PIL import Image
 import errno
 import math
 import os
@@ -135,6 +136,12 @@ def genicon(
     show_chars(ctx, characters, foreground, padding, width, height)
     return ctx
 
+#function to create a Cairo canvas that write to a SVG file
+def create_svg_context(width, height, filepath):
+    surface = cairo.SVGSurface(filepath, width, height)
+    ctx = cairo.Context(surface)
+    return ctx
+
 
 def main():
     font_map = pangocairo.font_map_get_default()
@@ -194,6 +201,22 @@ def main():
                         raise
                 # Will raise and exception on error
                 ctx.get_target().write_to_png(filepath)
+
+                # Optimize the just‐saved PNG with optipng (lossless compression)
+                os.system(f"optipng -o7 {filepath}")
+
+                # Convert PNG -> WebP (smaller file size, quality=85)
+                img = Image.open(filepath)
+                webp_filepath = filepath.replace(".png", ".webp")
+                img.save(webp_filepath, format="webp", quality=85)
+
+                # Also render the same icon as SVG  
+                svg_filepath = filepath.replace(".png", ".svg")
+                svg_ctx = create_svg_context(width, height, svg_filepath)
+                set_background(svg_ctx, background, width, height)
+                configure_font(svg_ctx, font_size)
+                show_chars(svg_ctx, chars, foreground, padding, width, height)
+                svg_ctx.show_page()
 
 
 if __name__ == "__main__":
