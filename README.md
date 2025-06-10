@@ -58,32 +58,65 @@ python3 scripts/genicons.py
 This will generate the icons in the directory `www/i` directory.
 
 
-### Development
+## Development
 
-- Style/Syntax
-  - Github Actions check the style and syntax with [black][black] and
-    [flake8][flake8]. Run the following commands before submitting a pull
-    request:
-    - Reformat with black using a maxiumum of 79 charaters per line:
-        ```shell
-        black -l 79 ./scripts/genicons.py
-        ```
-    - Check syntax with flake8:
-        ```shell
-        flake8 ./scripts/genicons.py
-        ```
-- Dependencies
-  - *Pycairo is a Python module providing bindings for the cairo graphics
-    library* ([Overview — Pycairo documentation][pycairo]).
-  - *PyGObject is a Python package which provides bindings for GObject based
-    libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more*
-    ([Overview — PyGObject][pygobject]).
-  - PangoCairo is used to load the system fonts and check if the "CC Icons" font
-    is available. See [PangoCairo.FontMap - Interfaces -
-    PangoCairo 1.0][pcfontmap].
+
+### Setup
+
+Once this project's required dependencies (Docker, Git, etc.) are enabled on
+your system, you will be able to run the legal-tools application and generate
+static files.
+
+For information on learning and installing the prerequisite technologies for 
+this project, please see [Foundational technologies — Creative Commons Open
+Source][found-tech].
+
+
+### Docker
+
+1. Build the containers.
+    ```shell
+    docker compose build
+    ```
+2. Run the containers.
+    ```shell
+    docker compose up
+    ```
+3. Generate icons in container
+    ```shell
+    ./dev/genicons.sh
+    ```
+4. Access NGINX site in web container: [127.0.0.1:8080](http://127.0.0.1:8080/)
+
+
+## Style/Syntax
+
+Github Actions check the style and syntax with [black][black] and
+[flake8][flake8]. Run the following commands before submitting a pull request:
+- Reformat with black using a maxiumum of 79 charaters per line:
+    ```shell
+    black -l 79 ./scripts/genicons.py
+    ```
+- Check syntax with flake8:
+    ```shell
+    flake8 ./scripts/genicons.py
+    ```
 
 [black]: https://github.com/python/black
 [flake8]: https://gitlab.com/pycqa/flake8
+
+
+### Dependencies
+
+- *Pycairo is a Python module providing bindings for the cairo graphics
+  library* ([Overview — Pycairo documentation][pycairo]).
+- *PyGObject is a Python package which provides bindings for GObject based
+  libraries such as GTK, GStreamer, WebKitGTK, GLib, GIO and many more*
+  ([Overview — PyGObject][pygobject]).
+- PangoCairo is used to load the system fonts and check if the "CC Icons" font
+  is available. See [PangoCairo.FontMap - Interfaces -
+  PangoCairo 1.0][pcfontmap].
+
 [pycairo]: https://pycairo.readthedocs.io/en/latest/
 [pygobject]: https://pygobject.readthedocs.io/en/latest/index.html
 [pcfontmap]: https://lazka.github.io/pgi-docs/PangoCairo-1.0/classes/FontMap.html#PangoCairo.FontMap
