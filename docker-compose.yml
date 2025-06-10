@@ -1,0 +1,24 @@
+# https://docs.docker.com/compose/compose-file/
+
+services:
+  web:
+    build:
+      dockerfile: dev/Dockerfile
+    command: sh -c "
+      echo 'Starting static webserver at http://127.0.0.1:8080/'
+      && nginx -g 'daemon off;'
+      "
+    init: true
+    ports:
+      - '8080:80'
+    restart: on-failure
+    volumes:
+      - .:/srv/licensebuttons
+      - ./dev/etc-nginx-sites-available-default:/etc/nginx/sites-available/default:ro
+      - ./www/cc-icons.ttf:/root/.fonts/cc-icons.ttf:ro
+      - licbuttons-www-i:/srv/licensebuttons/www/i
+    working_dir: /srv/licensebuttons
+
+volumes:
+ licbuttons-www-i:
+    name: licbuttons-www-i

@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    server_name localhost;
+    root /srv/licensebuttons/www;
+    location /i {
+        fancyindex on;
+        fancyindex_header /header.html;
+        fancyindex_footer /footer-i.html;
+        fancyindex_exact_size off;
+    }
+    location / {
+        fancyindex on;
+        fancyindex_header /header.html;
+        fancyindex_footer /footer.html;
+        fancyindex_exact_size off;
+    }
+}
+# vim: ft=nginx
