@@ -15,34 +15,40 @@ on:
       - "**.yaml"
 
 jobs:
+
   lint:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - uses: actions/checkout@v1
       - name: Set up Python 3
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.7
+          # Matches Python3 version on Debian Bookworm
+          python-version: 3.11
       - name: Install pip
         run: |
           python -m pip install --upgrade pip
+      - name: Install Python dependencies
+        run: |
+          pip install black flake8
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Testing with flake8
         run: |
-          pip install flake8
           flake8 ./scripts/genicons.py
       - name: Testing with black
         run: |
-          pip install black
           black --check -l 79 ./scripts/genicons.py
+
   test:
       runs-on: ubuntu-latest
-      
+
       steps:
-        - uses: actions/checkout@v1
         - name: Install dependencies
           run: |
             sudo apt-get install gir1.2-pango-1.0 python3-gi-cairo
+        - name: Checkout repository
+          uses: actions/checkout@v4
         - name: Install CC Fonts
           run: |
             sudo mkdir -p ~/.fonts
