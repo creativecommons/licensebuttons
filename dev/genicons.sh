@@ -44,7 +44,7 @@ icon_stats() {
     echo '/srv/licensebuttons/www/i'
     _count=$(docker compose exec web find /srv/licensebuttons/www/i -type f \
         | wc -l | tr -d '[:space:]')
-    _size=$(docker compose exec web du -sh /srv/licensebuttons/www/i \
+    _size=$(docker compose exec web du -bsh /srv/licensebuttons/www/i \
         | awk '{print $1}')
     printf '    %11s %5s\n'  'File count:' "${_count}"
     printf '    %11s %5s\n'  'Size:' "${_size}"
