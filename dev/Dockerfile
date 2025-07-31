@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
         gir1.2-pango-1.0 \
         libnginx-mod-http-fancyindex \
         nginx-light \
+        optipng \
         python3-gi-cairo \
+        python3-pil \
         tree \
     && rm -rf /var/lib/apt/lists/*
