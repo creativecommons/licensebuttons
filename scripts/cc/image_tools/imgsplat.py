@@ -1,5 +1,9 @@
-"""
-imgsplat.py
+"""Copy license button images into paths named by the license RDF index.
+
+For each ``foaf:logo`` URL on a ``cc:License``, use the URL's license code
+and image size to choose a PNG from ``base-images``. Copy that PNG to the
+corresponding path under ``www`` so the URL can be served as a static file.
+The ``imgsplat`` console command loads the Creative Commons license index.
 
 (c) 2006 Creative Commons.
 """
@@ -18,6 +22,7 @@ NS_CC = Namespace("http://creativecommons.org/ns#")
 NS_RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 NS_FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 
+# Jurisdictions whose noncommercial buttons use the local ``_euro`` variant.
 MONEY = {
     "at": "euro",
     "be": "euro",
@@ -35,9 +40,10 @@ MONEY = {
 
 
 def checkout_base():
-    """Return the base destination path.  Note that this assumes you're
-    running the tool from a Subversion checkout (or that your filesystem
-    layout is the same as our repository)."""
+    """Return the repository root, three directories above this module.
+
+    The expected layout has ``base-images`` and ``www`` at that root.
+    """
 
     return os.path.abspath(
         os.path.join(os.path.dirname(__file__), "..", "..", "..")
@@ -45,7 +51,7 @@ def checkout_base():
 
 
 def load_graph(filename):
-    """Load the specified filename; return a graph."""
+    """Parse an RDF file or URL into a graph with common namespace prefixes."""
 
     store = Graph()
     store.bind("cc", "http://creativecommons.org/ns#")
@@ -59,12 +65,20 @@ def load_graph(filename):
 
 
 def copyto(source, dest, code, size, jurisdiction, money=MONEY):
-    # Make the destination directory, if necessary
+    """Copy a source PNG stem to a destination path, selecting a variant.
+
+    ``source`` has no extension; ``dest`` is the complete output filename.
+    For supported jurisdictions, noncommercial buttons other than 80x15
+    use a currency-suffixed source. Copy failures are reported to stdout
+    and do not stop processing.
+    """
+
+    # The URL-derived destination may contain directories not yet in www.
     dest_dir = os.path.dirname(dest)
     if not os.access(dest_dir, os.F_OK):
         os.makedirs(dest_dir)
 
-    # If NC (and not the 80x15 icon), use the appropriate currency icon.
+    # The generic somerights1 button has no currency-specific source.
     if (
         string.find(code, "nc") != -1
         and jurisdiction in money
@@ -83,14 +97,22 @@ def copyto(source, dest, code, size, jurisdiction, money=MONEY):
 
 
 def splat(license_graph):
+    """Copy local button images for the license logo URLs in an RDF graph.
+
+    Only subjects typed ``cc:License`` are visited. Their ``foaf:logo``
+    values are expected to be i.creativecommons.org PNG URLs in the
+    ``/l/`` or ``/p/`` layout; each URL becomes a path below ``www``.
+    """
+
     for uri in license_graph.subjects(NS_RDF.type, NS_CC.License):
         print uri
 
         for s, p, logo in license_graph.triples((uri, NS_FOAF.logo, None)):
-            # Get the dest_path, which is base-images and
-            # everything after 'http://i.creativecommons.org/'
+            # Mirror the path after the image host beneath www.
             dest_path = os.path.join(checkout_base(), "www", str(logo)[29:])
 
+            # A logo URL encodes the license code, optional version and
+            # jurisdiction, and the image size used to find a local PNG.
             m = re.search(
                 "^http://i.creativecommons.org/"
                 "(?P<group>l|p)/"
@@ -105,6 +127,8 @@ def splat(license_graph):
             jurisdiction = m.group("jurisdiction")
             size = m.group("size")
 
+            # Some URL codes share a source image or use a different order
+            # from the filenames in base-images.
             code2 = code
             if code == "by-nd-nc":
                 code2 = "by-nc-nd"
@@ -117,6 +141,6 @@ def splat(license_graph):
 
 
 def cli():
-    """imgsplat command line interface."""
+    """Load the published license index and copy all referenced buttons."""
 
     splat(load_graph("http://creativecommons.org/licenses/index.rdf"))
